@@ -10,29 +10,21 @@ class ListNode:
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
         curr = headA
-        curr2 = headB
+
+        hashSet = set()
 
         while curr is not None:
-            while curr2 is not None:
-                if curr is curr2:
-                    return curr2
-                else:
-                    curr2 = curr2.next
+            hashSet.add(curr)
             curr = curr.next
-            curr2 = headB
+
+        curr = headB
+        while curr is not None:
+            if curr in hashSet:
+                return curr
+            curr = curr.next
 
         return None
     
-class Solution2:
-    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-        curr = headA
-        curr2 = headB
-
-        while curr is not None or curr2 is not None:
-            if curr.val == curr2.val:
-                if curr is curr2:
-                    return curr
-            
 
 s = Solution()
 headA = ListNode(4)
