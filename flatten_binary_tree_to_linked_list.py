@@ -48,22 +48,22 @@ root = TreeNode(1, TreeNode(2, TreeNode(3), TreeNode(4)), TreeNode(5, None, Tree
 s.flatten(root)
 print(root)
 
-class Solution2:
-    def __init__(self) -> None:
-        self.prev = None
+# class Solution2:
+#     def __init__(self) -> None:
+#         self.prev = None
 
-    def flatten(self, root: Optional[TreeNode]) -> None:
-        if root is None:
-            return
+#     def flatten(self, root: Optional[TreeNode]) -> None:
+#         if root is None:
+#             return
         
-        self.flatten(root.right)
-        self.flatten(root.left)
-        root.right = self.prev
-        root.left = None
-        self.prev = root
+#         self.flatten(root.right)
+#         self.flatten(root.left)
+#         root.right = self.prev
+#         root.left = None
+#         self.prev = root
 
 
-s = Solution2()
-root = TreeNode(1, TreeNode(2, TreeNode(3), TreeNode(4)), TreeNode(5, None, TreeNode(6)))
-s.flatten(root)
-print(root)
+# s = Solution2()
+# root = TreeNode(1, TreeNode(2, TreeNode(3), TreeNode(4)), TreeNode(5, None, TreeNode(6)))
+# s.flatten(root)
+# print(root)
