@@ -7,4 +7,3 @@ class Solution:
         newdict = dict(sorted(hashmap.items(), key=lambda item: item[1], reverse=True))
         newdict = list(newdict.keys())
         return newdict[:k]
-
