@@ -1,9 +1,8 @@
 class Solution:
-    
     def encode(self, strs: List[str]) -> str:
         res = ""
         for s in strs:
-            res += str(len(s)) + "#" + s
+            res += str(len(s)) + "$" + s
         return res
 
     def decode(self, s: str) -> List[str]:
@@ -12,7 +11,7 @@ class Solution:
         
         while i < len(s):
             j = i
-            while s[j] != '#':
+            while s[j] != '$':
                 j += 1
             length = int(s[i:j])
             i = j + 1
