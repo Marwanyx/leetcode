@@ -1,20 +1,44 @@
-class F:
-    # Implementation Omitted
-    pass
+from typing import List, Optional
 
-class G(F):
-    # Implementation Omitted
-    pass
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
-class H(F):
-    # Implementation Omitted
-    pass
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        if root is None or (root.left is None and root.right is None):
+            return True
+        elif root.left and root.right:
+            if root.left.val < root.val < root.right.val:
+                return self.isValidBST(root.left) and self.isValidBST(root.right)
+            return False
+        elif root.left and not root.right:
+            if root.left.val < root.val:
+                return self.isValidBST(root.left)
+            return False
+        elif not root.left and root.right:
+            if root.val < root.right.val:
+                return self.isValidBST(root.right)
+            return False
+        else:
+            return False
 
-if __name__ == '__main__':
-    f = F()
-    g = G()
-    h = H()
+s = Solution()
 
-print(isinstance(h, F))
-print(type(f))
-print(type(g))
+# Test case 1
+root = TreeNode(2)
+root.left = TreeNode(1)
+root.right = TreeNode(3)
+
+print(s.isValidBST(root))  # Expected: True
+
+# Test case 2
+root = TreeNode(5)
+root.left = TreeNode(1)
+root.right = TreeNode(4)
+root.right.left = TreeNode(3)
+root.right.right = TreeNode(6)
+
+print(s.isValidBST(root))  # Expected: False
