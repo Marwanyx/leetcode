@@ -1,45 +1,32 @@
 class Solution:
-    def isValid(self, s: str) -> bool:
+    def isValid(self, s: str, l: int) -> bool:
         stack = []
-        for i in range(len(s)):
-            if len(stack) == 0:
-                if s[i] == ")":
-                    return False
-                elif s[i] == "}":
-                    return False
-                elif s[i] == "]":
-                    return False
-            if s[i] == "(":
-                stack.append(s[i])
-            elif s[i] == "{":
-                stack.append(s[i])
-            elif s[i] == "[":
-                stack.append(s[i])
+        count = 0
+        for char in s:
+            if char not in "({[)}]":
+                continue
 
-            elif s[i] == ")":
-                if "(" == stack[-1]:
-                    stack.pop()
-                else:
+            count += 1
+            if char in "({[":
+                stack.append(char)
+            else:
+                if not stack:
                     return False
-            elif s[i] == "}":
-                if "{" == stack[-1]:
-                    stack.pop()
-                else:
-                    return False
-            elif s[i] == "]":
-                if "[" == stack[-1]:
-                    stack.pop()
+                
+                item = stack.pop()
+                if char == ")" and item == "(":
+                    continue
+                elif char == "}" and item == "{":
+                    continue
+                elif char == "]" and item == "[":
+                    continue
                 else:
                     return False
         
-        if len(stack) == 0:
-            return True
-        else:
-            return False
+        return len(stack) == 0 and count == l
+
 
 s = Solution()
-print(s.isValid("()"))
-print(s.isValid("()[]{}"))
-print(s.isValid("(]"))
-print(s.isValid("({{{{}}}))"))
-print(s.isValid("(])"))
+print(s.isValid("()", 2)) # True
+print(s.isValid("()[]{}", 2)) # False
+print(s.isValid("(]", 2)) # False
