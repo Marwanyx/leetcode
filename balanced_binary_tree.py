@@ -8,24 +8,22 @@ class TreeNode:
 
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        return self.helper(root) >= 0
-
-    def helper(self, root):
         if root is None:
+            return True
+        else:
+            left = self.depth(root.left)
+            right = self.depth(root.right)
+
+            if abs(right - left) > 1:
+                return False
+            
+            return self.isBalanced(root.left) and self.isBalanced(root.right) 
+
+    def depth(self, node) -> int:
+        if node is None:
             return 0
         else:
-            l = self.helper(root.left)
-            r = self.helper(root.right)
-            if l < 0 or r < 0 or abs(l - r) > 1:
-                return -1
-            return 1 + max(l, r)
+            return 1 + max(self.depth(node.left), self.depth(node.right))
         
-
-t = TreeNode(3)
-t.left = TreeNode(9)
-t.right = TreeNode(20)
-t.right.left = TreeNode(15)
-t.right.right = TreeNode(7)
-
 s = Solution()
-print(s.isBalanced(t))
+print(s.isBalanced(TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7)))) == True) # Expected output: True
